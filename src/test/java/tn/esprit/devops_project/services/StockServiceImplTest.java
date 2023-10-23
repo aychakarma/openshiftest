@@ -31,11 +31,18 @@ class StockServiceImplTest {
 
     @Autowired
     private StockServiceImpl stockService;
+    @Test
+    @DatabaseSetup("/data-set/stock-data.xml")
+    void addStock() {
+        final Stock stock = new Stock();
+        stock.setTitle("KARMA");
+        this.stockService.addStock(stock);
+    }
 
     @Test
     @DatabaseSetup("/data-set/stock-data.xml")
     void retrieveStock() {
-        final Stock stock = this.stockService.retrieveStock(1L);
+        final Stock stock = this.stockService.retrieveStock(2L);
         assertEquals("stock 1", stock.getTitle());
     }
 
@@ -50,7 +57,7 @@ class StockServiceImplTest {
         assertFalse(allStocks.isEmpty());
 
         // Check the size of the list (number of elements expected in the list)
-        assertEquals(1, allStocks.size());
+        assertEquals(2, allStocks.size());
 
         // Check the titles of the stocks in the list
         assertEquals("stock 1", allStocks.get(0).getTitle());
