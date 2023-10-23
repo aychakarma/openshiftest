@@ -7,7 +7,7 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       MYSQL_DATABASE: devopsback
     networks:
-      - bridge  # Utilisez le même nom de réseau ici
+      - mon_reseau # Utilisez le même nom de réseau ici
     ports:
       - "3307:3306"
     volumes:
