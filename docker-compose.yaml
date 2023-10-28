@@ -7,9 +7,9 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
       MYSQL_DATABASE: devopsback
     networks:
-      - mon_reseau # Utilisez le même nom de réseau ici
+      - mon_reseau
     ports:
-      - "3307:3306"   # port conteneur: port hote
+      - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
 
@@ -21,17 +21,43 @@ services:
     depends_on:
       - mysqldb
     networks:
-      - mon_reseau  # Utilisez le même nom de réseau ici
+      - mon_reseau
     ports:
       - "8083:8082"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/devopsback  # Utilisez le nom du service MySQL comme hôte
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysqldb:3306/devopsback
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: ""
 
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./prometheus-config:/etc/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - "9090:9090"
+    networks:
+      - mon_reseau
+    depends_on:
+      - springboot-app
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
+    networks:
+      - mon_reseau
+    depends_on:
+      - prometheus
+
 networks:
   mon_reseau:
-    driver: bridge  # Vous pouvez spécifier d'autres options de réseau si nécessaire
+    driver: bridge
 
 volumes:
   mysql_data:
