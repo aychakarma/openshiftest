@@ -2,6 +2,7 @@ package tn.esprit.devops_project.services;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import tn.esprit.devops_project.metrics.CustomMetricsService;
 import tn.esprit.devops_project.services.Iservices.IStockService;
 import tn.esprit.devops_project.entities.Stock;
 import tn.esprit.devops_project.repositories.StockRepository;
@@ -13,9 +14,11 @@ import java.util.List;
 public class StockServiceImpl implements IStockService {
 
    private final StockRepository stockRepository;
+    private final CustomMetricsService customMetricsService;
 
     @Override
     public Stock addStock(Stock stock) {
+        customMetricsService.incrementCustomCounter();
         return stockRepository.save(stock);
     }
 

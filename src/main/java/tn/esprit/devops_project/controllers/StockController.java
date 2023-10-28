@@ -4,6 +4,7 @@ package tn.esprit.devops_project.controllers;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.devops_project.entities.Stock;
+import tn.esprit.devops_project.metrics.CustomMetricsService;
 import tn.esprit.devops_project.services.Iservices.IStockService;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
 public class StockController {
 
     IStockService stockService;
+    CustomMetricsService customMetricsService;
 
     @PostMapping("/stock")
     Stock addStock(@RequestBody Stock stock){
@@ -21,7 +23,12 @@ public class StockController {
 
     @GetMapping("/stock/{id}")
     Stock retrieveStock(@PathVariable Long id){
-        return stockService.retrieveStock(id);
+        long startTime = System.currentTimeMillis();
+        Stock stock = stockService.retrieveStock(id);
+        long endTime = System.currentTimeMillis();
+        long executionTime = endTime - startTime;
+        customMetricsService.recordCustomValue(executionTime);
+        return stock;
     }
 
     @GetMapping("/stock")
