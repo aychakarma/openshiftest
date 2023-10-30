@@ -2,10 +2,12 @@ global:
   scrape_interval: 15s
 
 scrape_configs:
-  - job_name: 'your-spring-app'
+  - job_name: 'spring-actuator-local'
+    metrics_path: '/actuator/prometheus'
     static_configs:
-      - targets: ['192.168.1.181:8083']  # Adresse IP de votre conteneur Spring Boot sur le port 8083
+      - targets: ['localhost:8082']  # Adresse locale de votre machine
 
-  - job_name: 'jenkins'
+  - job_name: 'spring-actuator-docker'
+    metrics_path: '/actuator/prometheus'
     static_configs:
-      - targets: ['192.168.1.181:8080']  # Adresse IP de Jenkins sur le port 8080
+      - targets: ['192.168.1.181:8083']  # Adresse IP de votre conteneur Docker
