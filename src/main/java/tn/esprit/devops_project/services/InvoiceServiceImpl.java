@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import tn.esprit.devops_project.entities.Invoice;
 import tn.esprit.devops_project.entities.Operator;
 import tn.esprit.devops_project.entities.Supplier;
-import tn.esprit.devops_project.metrics.CustomMetricsService;
 import tn.esprit.devops_project.repositories.InvoiceDetailRepository;
 import tn.esprit.devops_project.repositories.InvoiceRepository;
 import tn.esprit.devops_project.repositories.OperatorRepository;
@@ -25,7 +24,6 @@ public class InvoiceServiceImpl implements IInvoiceService {
 	final OperatorRepository operatorRepository;
 	final InvoiceDetailRepository invoiceDetailRepository;
 	final SupplierRepository supplierRepository;
-	private final CustomMetricsService customMetricsService; // Injectez CustomMetricsService
 
 
 	@Override
@@ -39,7 +37,6 @@ public class InvoiceServiceImpl implements IInvoiceService {
 		invoice.setArchived(true);
 		invoiceRepository.save(invoice);
 		//method 02 (Avec JPQL)
-		customMetricsService.incrementCustomCounter();
 		invoiceRepository.updateInvoice(invoiceId);
 	}
 
@@ -73,7 +70,6 @@ public class InvoiceServiceImpl implements IInvoiceService {
 		long executionTime = endTime - startTime;
 
 		// Enregistrez la durée d'exécution en tant que métrique personnalisée
-		customMetricsService.recordCustomValue(executionTime);
 		return invoiceRepository.getTotalAmountInvoiceBetweenDates(startDate, endDate);
 
 	}
