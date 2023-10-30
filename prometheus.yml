@@ -4,7 +4,6 @@ global:
 scrape_configs:
   - job_name: 'your-spring-app'
     static_configs:
-      - targets: ['192.168.1.181:8082']  # Adresse IP de votre application Spring Boot sur le port 8082
       - targets: ['192.168.1.181:8083']  # Adresse IP de votre conteneur Spring Boot sur le port 8083
 
   - job_name: 'jenkins'
