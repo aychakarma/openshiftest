@@ -54,12 +54,14 @@ services:
       - mon_reseau
     depends_on:
       - prometheus
+    volumes:  # Créez un volume pour Grafana
+      - grafana_data:/var/lib/grafana
 
   front-end:
-    image: karma12/front:v1  # Assurez-vous que l'image correcte est disponible sur Docker Hub
+    image: karma12/front:v1
     container_name: front-end
     ports:
-      - "80:80"  # Vous pouvez mapper le port 80 du conteneur au port 80 de l'hôte
+      - "80:80"
     networks:
       - mon_reseau
 
@@ -69,3 +71,4 @@ networks:
 
 volumes:
   mysql_data:
+  grafana_data:  # Créez un volume pour Grafana
