@@ -55,6 +55,14 @@ services:
     depends_on:
       - prometheus
 
+  front-end:
+    image: karma12/front:v1  # Assurez-vous que l'image correcte est disponible sur Docker Hub
+    container_name: front-end
+    ports:
+      - "80:80"  # Vous pouvez mapper le port 80 du conteneur au port 80 de l'hôte
+    networks:
+      - mon_reseau
+
 networks:
   mon_reseau:
     driver: bridge
