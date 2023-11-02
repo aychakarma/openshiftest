@@ -169,5 +169,5 @@
         </plugins>
         <finalName>newjar</finalName>
     </build>
-
+         
 </project>
