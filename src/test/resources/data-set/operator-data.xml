@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dataset>
+    <OPERATOR ID_OPERATEUR="2" FNAME="John" LNAME="Doe" PASSWORD="password" />
+    <OPERATOR ID_OPERATEUR="3" FNAME="Jane" LNAME="Smith" PASSWORD="password" />
+</dataset>

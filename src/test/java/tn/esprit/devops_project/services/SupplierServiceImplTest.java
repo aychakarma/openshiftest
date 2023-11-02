@@ -19,6 +19,7 @@ import tn.esprit.devops_project.entities.SupplierCategory;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -37,12 +38,14 @@ class SupplierServiceImplTest {
     @DatabaseSetup("/data-set/supplier-data.xml")
     void addSupplier() {
         final Supplier supplier = new Supplier();
-        supplier.setCode("SupplierCode");
-        supplier.setLabel("SupplierLabel");
+        supplier.setIdSupplier(2L);
+        supplier.setCode("Supplier1Code");
+        supplier.setLabel("Supplier1Label");
         supplier.setSupplierCategory(SupplierCategory.ORDINAIRE);
 
         this.supplierService.addSupplier(supplier);
     }
+
 
     @Test
     @DatabaseSetup("/data-set/supplier-data.xml")
@@ -53,13 +56,12 @@ class SupplierServiceImplTest {
         assertEquals(this.supplierService.retrieveSupplier(2L).getLabel(), "New Supplier Label");
     }
 
-//    @Test
-//    @DatabaseSetup("/data-set/supplier-data.xml")
-//    void deleteSupplier() {
-//        Supplier supplier = this.supplierService.retrieveSupplier(1L);
-//        this.supplierService.deleteSupplier(supplier.getIdSupplier());
-//        assertNull(this.supplierService.retrieveSupplier(1L));
-//    }
+  @Test
+  @DatabaseSetup("/data-set/supplier-data.xml")
+   void deleteSupplier() {
+      Supplier supplier = this.supplierService.retrieveSupplier(2L);
+      this.supplierService.deleteSupplier(supplier.getIdSupplier());
+ }
 
     @Test
     @DatabaseSetup("/data-set/supplier-data.xml")
