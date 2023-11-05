@@ -5,7 +5,7 @@ FROM openjdk:11
 WORKDIR /app
 
 # Copiez le fichier JAR depuis le répertoire cible de votre projet
-COPY target/newjar.jar newjar.jar
+COPY target/*.jar newjar.jar
 
 # Exposez le port
 EXPOSE 8083
