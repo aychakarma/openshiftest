@@ -1,7 +1,7 @@
 FROM openjdk:17-jdk-slim-buster
 WORKDIR /app
 
-COPY target/*.jar app.jar
+COPY target/newjar.jar newjar.jar
 
 EXPOSE 8083
 
