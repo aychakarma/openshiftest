@@ -81,7 +81,6 @@
             <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>
 
-
         <!-- Dépendance Spring Test DBUnit pour les tests -->
         <dependency>
             <groupId>com.github.springtestdbunit</groupId>
@@ -169,6 +168,4 @@
         </plugins>
         <finalName>newjar</finalName>
     </build>
-
-
 </project>
